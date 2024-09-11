@@ -13,7 +13,7 @@
     <header>
         @include('component.header')
     </header>
-    <div class="container mx-auto mt-20 mb-10 p-5 bg-white shadow-md rounded-lg max-w-xl sm:max-w-md md:max-w-lg">
+    <div >
         @yield('content')
     </div>
     </body>

@@ -2,8 +2,14 @@
 @extends('component.base')
 
 @section('content')
-    <div class="container mx-auto mt-10 p-6 bg-white shadow-md rounded-lg max-w-xl">
+    <div class="container mx-auto mt-40 mb-20 p-6 bg-white shadow-md rounded-lg max-w-xl">
         <h2 class="text-2xl font-bold text-black-blue mb-6">Demande d'affiliation</h2>
+
+        @if (session('success'))
+            <div class="bg-my-green text-white p-4 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
 
         <form action="{{ route('affiliation.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
@@ -81,11 +87,7 @@
             <div>
                 <button type="submit" class="w-full bg-my-green text-white py-2 px-4 rounded-md shadow hover:bg-green-600">Soumettre la demande</button>
             </div>
-            @if (session('success'))
-                <div class="bg-my-green text-white p-4 rounded mb-4">
-                    {{ session('success') }}
-                </div>
-            @endif
+
         </form>
     </div>
 @endsection
