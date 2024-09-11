@@ -52,6 +52,6 @@ class AffiliationController extends Controller
             'etat' => 'en attente',
         ]);
 
-        return redirect()->route('affiliation.create')->with('success', 'Demande d\'affiliation soumise avec succès.');
+        return redirect()->route('entreprise.showLoginForm')->with('success', 'Demande d\'affiliation soumise avec succès.');
     }
 }
