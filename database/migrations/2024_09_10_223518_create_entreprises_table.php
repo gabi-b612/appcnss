@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('entreprises', function (Blueprint $table) {
             $table->id();
-            $table->string('denomination');
+            $table->string('denomination')->unique();
             $table->string('adresse');
-            $table->string('telephone');
+            $table->string('telephone')->unique();
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('forme_juridique', ['S.A.R.L.', 'S.A.', 'A.S.B.L.', 'ETS.']);

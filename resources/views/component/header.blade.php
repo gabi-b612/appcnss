@@ -32,12 +32,12 @@
             <img src="{{asset('img/logo-CNSS.png')}}" alt="Logo CNSS" class="h-10 ">
         </div>
         <div class="flex space-x-5 items-center ">
-            <a href="#" class="text-green-400 font-semibold text-lg gap-2">Accueil</a>
+            <a href="{{route('index')}}" class="text-green-400 font-semibold text-lg gap-2">Accueil</a>
             <div class="relative group">
                 <a href="#" class="text-gray-800 hover:text-green-600 font-semibold">Employeur</a>
                 <ul class="absolute hidden group-hover:block bg-white shadow-md mt-2 rounded">
                     <li>
-                        <a href="#" class="block px-4 py-2 text-gray-800 hover:text-my-green">Demande d'affiliation</a>
+                        <a href="{{route('affiliation.create')}}" class="block px-4 py-2 text-gray-800 hover:text-my-green">Demande d'affiliation</a>
                     </li>
                     <li>
                         <a href="#" class="block px-4 py-2 text-gray-800 hover:text-my-green">Demande d'immatriculation</a>
