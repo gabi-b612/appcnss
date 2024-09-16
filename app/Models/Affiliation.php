@@ -14,6 +14,8 @@ class Affiliation extends Model
         'entreprise_id',
         'numero_affiliation',
         'document_rccm',
+        'document_juridique',
+        'document_id_national',
         'abreviation',
         'etat'
     ];

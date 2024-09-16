@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('entreprise_id')->constrained('entreprises')->onDelete('cascade');
             $table->string('numero_affiliation', 10)->unique();
             $table->string('document_rccm');
+            $table->string('document_juridique');
+            $table->string('document_id_national');
             $table->string('abreviation')->nullable();
             $table->enum('etat', ['accepter', 'rejeter', 'en attente'])->default('en attente');
             $table->timestamps();

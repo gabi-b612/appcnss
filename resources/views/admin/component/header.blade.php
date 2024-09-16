@@ -41,6 +41,6 @@
             <a href="#" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Les demande d'immatriculation</a>
             <a href="#" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Les Cotisations</a>
         </div>
-        <a href="#" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Se deconnecter</a>
+        <a href="{{route('admin.logout')}}" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Se deconnecter</a>
     </nav>
 </header>

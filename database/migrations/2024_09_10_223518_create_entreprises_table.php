@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('adresse');
             $table->string('telephone')->unique();
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->enum('forme_juridique', ['S.A.R.L.', 'S.A.', 'A.S.B.L.', 'ETS.']);
             $table->timestamps();
         });
