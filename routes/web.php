@@ -9,6 +9,12 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
+Route::get('/administrateur', function () {
+    return view('admin.dashboard');
+})->name('dashboard');
+
+
+
 Route::get('/demande/affiliation', [AffiliationController::class, 'create'])->name('affiliation.create');
 Route::post('/demande/affiliation', [AffiliationController::class, 'store'])->name('affiliation.store');
 

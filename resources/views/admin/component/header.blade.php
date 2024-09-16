@@ -29,10 +29,18 @@
         </div>
     </div>
 
-    <nav class="p-4 flex justify-center items-center gap-10">
-        <div class="flex items-center space-x-4 ">
-            <img src="{{asset('img/logo-CNSS.png')}}" alt="Logo CNSS" class="h-10 ">
+    <nav class="p-4 flex justify-between items-center gap-10">
+        <a href="{{ route('dashboard') }}">
+            <div class="flex items-center space-x-4 ">
+                <p class="text-gray-800 ml-0 hover:text-my-green font-extrabold size-3">Administrateur</p>
+            </div>
+        </a>
+        <div class="flex space-x-5 items-center ">
+            <a href="#" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Les Employeurs</a>
+            <a href="" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Les demande d'affiliation</a>
+            <a href="#" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Les demande d'immatriculation</a>
+            <a href="#" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Les Cotisations</a>
         </div>
-
+        <a href="#" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Se deconnecter</a>
     </nav>
 </header>
