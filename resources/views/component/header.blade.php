@@ -27,6 +27,7 @@
             </div>
         </div>
     </div>
+
     <nav class="p-4 flex justify-center items-center gap-10">
         <div class="flex items-center space-x-4 ">
             <img src="{{asset('img/logo-CNSS.png')}}" alt="Logo CNSS" class="h-10 ">
@@ -44,6 +45,9 @@
                     </li>
                     <li>
                         <a href="#" class="block px-4 py-2 text-gray-800 hover:text-my-green">Declarer le versement</a>
+                    </li>
+                    <li>
+                        <a href="{{route('entreprise.showLoginForm')}}" class="block px-4 py-2 text-gray-800 hover:text-my-green">Se connecter</a>
                     </li>
                 </ul>
             </div>
