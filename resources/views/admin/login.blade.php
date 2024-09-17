@@ -4,7 +4,11 @@
     <div class="flex items-center justify-center h-screen">
         <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
             <h1 class="text-2xl font-bold text-center text-black-blue mb-4">Connexion Administrateur</h1>
-
+            @if (session('error'))
+                <div class="bg-red-100 text-red-700 p-2 rounded mb-4">
+                    {{ session('error') }}
+                </div>
+            @endif
             <form method="POST" action="{{ route('admin.login') }}">
                 @csrf
                 <div class="mb-4">

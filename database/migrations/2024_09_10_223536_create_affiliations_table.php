@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('affiliations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('entreprise_id')->constrained('entreprises')->onDelete('cascade');
-            $table->string('numero_affiliation', 10)->unique();
+            $table->string('numero_affiliation', 10)->nullable()->unique();
             $table->string('document_rccm');
             $table->string('document_juridique');
             $table->string('document_id_national');

@@ -24,7 +24,7 @@ class AuthAdminController extends Controller
             $request->session()->regenerate();
             return redirect()->route('dashboard');
         }
-        return to_route('admin.login');
+        return to_route('admin.login')->with('error', 'Email ou mot de pass invalide');
     }
     public function logout(): RedirectResponse
     {

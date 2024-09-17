@@ -21,6 +21,9 @@ Route::post('/demande/affiliation', [AffiliationController::class, 'store'])->na
 Route::get('/administratreur/login', [AuthAdminController::class, 'login'])->name('admin.login');
 Route::get('/administratreur/logout', [AuthAdminController::class, 'logout'])->name('admin.logout');
 Route::post('/administratreur/login', [AuthAdminController::class, 'connexion']);
+Route::get('/administratreur/affiliations/attente', [AffiliationController::class, 'affiliationsEnAttente'])->name('admin.affiliations.attente');
+Route::post('/administratreur/affiliations/{id}/repondre', [AffiliationController::class, 'repondreAffiliation'])->name('admin.affiliations.repondre');
+
 
 
 Route::get('/entreprise/login', [EntrepriseController::class, 'showLoginForm'])->name('entreprise.showLoginForm');

@@ -5,9 +5,13 @@
     <div class="container mx-auto mt-40 mb-20 p-6 bg-white shadow-md rounded-lg max-w-xl">
         <h2 class="text-2xl font-bold text-black-blue mb-6">Demande d'affiliation</h2>
 
+        @if (session('success'))
+            <div class="bg-my-green text-white p-4 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
 
-
-        <form action="{{ route('affiliation.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <form action="{{ route('affiliation.create') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
             <!-- Dénomination -->
@@ -61,20 +65,29 @@
                 @enderror
             </div>
 
-            <!-- Mot de passe -->
+            <!-- Document RCCM -->
             <div>
-                <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
-                <input type="password" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-my-green focus:border-my-green sm:text-sm" id="password" name="password" required>
-                @error('password')
+                <label for="document_rccm" class="block text-sm font-medium text-gray-700">Document RCCM </label>
+                <input type="file" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-my-green file:text-white hover:file:bg-green-600" id="document_rccm" name="document_rccm" accept="application/pdf" required>
+                @error('document_rccm')
                 <small class="text-red-500">{{ $message }}</small>
                 @enderror
             </div>
 
-            <!-- Document RCCM -->
+            <!-- Document JURIDIQUE -->
             <div>
-                <label for="document_rccm" class="block text-sm font-medium text-gray-700">Document RCCM (PDF)</label>
-                <input type="file" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-my-green file:text-white hover:file:bg-green-600" id="document_rccm" name="document_rccm" accept="application/pdf" required>
-                @error('document_rccm')
+                <label for="document_juridique" class="block text-sm font-medium text-gray-700">Document JURIDIQUE</label>
+                <input type="file" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-my-green file:text-white hover:file:bg-green-600" id="document_juridique" name="document_juridique" accept="application/pdf" required>
+                @error('document_juridique')
+                <small class="text-red-500">{{ $message }}</small>
+                @enderror
+            </div>
+
+            <!-- Document ID NATIONAL -->
+            <div>
+                <label for="document_id_national" class="block text-sm font-medium text-gray-700">ID NATIONAL</label>
+                <input type="file" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-my-green file:text-white hover:file:bg-green-600" id="document_id_national" name="document_id_national" accept="application/pdf" required>
+                @error('document_id_national')
                 <small class="text-red-500">{{ $message }}</small>
                 @enderror
             </div>

@@ -4,11 +4,11 @@
 @section('content')
     <div class="flex items-center justify-center h-screen">
         <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
-            @if (session('success'))
-                <div class="bg-my-green text-white p-4 rounded mb-4">
-                    {{ session('success') }}
-                </div>
-            @endif
+{{--            @if (session('success'))--}}
+{{--                <div class="bg-my-green text-white p-4 rounded mb-4">--}}
+{{--                    {{ session('success') }}--}}
+{{--                </div>--}}
+{{--            @endif--}}
             <h1 class="text-2xl font-bold text-center text-black-blue mb-4">Connexion Entreprise</h1>
 
             @if (session('error'))
