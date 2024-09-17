@@ -44,11 +44,11 @@
                     </td>
                     <td class="py-2 px-4 border-b">{{ ucfirst($affiliation->etat) }}</td>
                     <td class="py-2 px-4 border-b">
-                        <form action="{{ route('admin.affiliations.repondre', $affiliation->id) }}" method="POST">
+                        <form action="{{ route('admin.affiliations.repondre', $affiliation) }}" method="POST">
                             @csrf
                             <select name="etat" class="border p-2 rounded">
                                 <option value="approuve">Approuver</option>
-                                <option value="rejeté">Rejeter</option>
+                                <option value="rejete">Rejeter</option>
                             </select>
                             <button type="submit" class="bg-my-green text-white px-4 py-2 rounded">
                                 Soumettre

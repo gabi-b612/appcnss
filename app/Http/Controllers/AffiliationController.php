@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ApprouveMailAffiliation;
+use App\Mail\RejectedMailAffiliation;
 use App\Models\Affiliation;
 use App\Models\Entreprise;
 use Illuminate\Contracts\View\Factory;
@@ -10,6 +12,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class AffiliationController extends Controller
 {
@@ -69,5 +73,49 @@ class AffiliationController extends Controller
         return view('admin.affiliations.attente', compact('affiliations'));
     }
 
+    public function confirmerRejet(Request $request, Affiliation $affiliation): RedirectResponse
+    {
+        // Validation de la raison
+        $validated = $request->validate([
+            'raison' => 'required|string|max:255',
+        ]);
 
+        // Envoi d'un email de rejet avec la raison
+        $entreprise = $affiliation->entreprise;
+        Mail::to($entreprise->email)->send(new RejectedMailAffiliation($entreprise, $validated['raison']));
+
+        // Mise à jour de l'état à rejeté
+        $affiliation->update(['etat' => 'rejeter']);
+        // Redirection avec un message de succès
+        return redirect()->route('admin.affiliations.attente')->with('success', 'La demande a été rejetée et l\'email a été envoyé.');
+    }
+
+    public function repondre(Request $request, Affiliation $affiliation)
+    {
+        $etat = $request->input('etat');
+
+        // Si l'état est approuvé
+        if ($etat == 'approuve') {
+            // Génération d'un mot de passe aléatoire
+            $generatedPassword = Str::random(10);
+
+
+            // Envoi d'un email de félicitations avec le mot de passe
+            $entreprise = $affiliation->entreprise;
+
+            Mail::to($entreprise->email)->send(new ApprouveMailAffiliation($entreprise, $generatedPassword));
+
+            // Mise à jour de l'état de l'affiliation
+            $affiliation->update(['etat' => 'accepter']);
+            $entreprise->password = $generatedPassword;
+            $entreprise->save();
+            // Redirection avec un message de succès
+            return redirect()->route('admin.affiliations.attente')->with('success', 'Demande approuvée et email envoyé avec le mot de passe.');
+        }
+
+        // Si l'état est rejeté, rediriger vers une vue pour saisir la raison du rejet
+        if ($etat == 'rejete') {
+            return view('admin.affiliations.rejet', compact('affiliation'));
+        }
+    }
 }

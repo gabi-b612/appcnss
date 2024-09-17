@@ -22,7 +22,10 @@ Route::get('/administratreur/login', [AuthAdminController::class, 'login'])->nam
 Route::get('/administratreur/logout', [AuthAdminController::class, 'logout'])->name('admin.logout');
 Route::post('/administratreur/login', [AuthAdminController::class, 'connexion']);
 Route::get('/administratreur/affiliations/attente', [AffiliationController::class, 'affiliationsEnAttente'])->name('admin.affiliations.attente');
-Route::post('/administratreur/affiliations/{id}/repondre', [AffiliationController::class, 'repondreAffiliation'])->name('admin.affiliations.repondre');
+Route::post('/administratreur/affiliations/{affiliation}/repondre', [AffiliationController::class, 'repondre'])->name('admin.affiliations.repondre');
+Route::post('/administratreur/affiliations/{affiliation}/rejet', [AffiliationController::class, 'confirmerRejet'])->name('admin.affiliations.rejet');
+
+//Route::post('/administratreur/affiliations/{id}/repondre', [AffiliationController::class, 'repondreAffiliation'])->name('admin.affiliations.repondre');
 
 
 
