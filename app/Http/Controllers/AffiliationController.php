@@ -17,7 +17,6 @@ use Illuminate\Support\Str;
 
 class AffiliationController extends Controller
 {
-
     public function create(): View|Factory|Application
     {
         return view('affiliation.create');
@@ -73,6 +72,18 @@ class AffiliationController extends Controller
         return view('admin.affiliations.attente', compact('affiliations'));
     }
 
+    public function affiliationsEnRejeter(): View|Factory|Application
+    {
+        $affiliations = Affiliation::where('etat', 'rejeter')->get();
+        return view('admin.affiliations.rejeter', compact('affiliations'));
+    }
+
+    public function affiliationsEnApprouver(): View|Factory|Application
+    {
+        $affiliations = Affiliation::where('etat', 'accepter')->get();
+        return view('admin.affiliations.accepter', compact('affiliations'));
+    }
+
     public function confirmerRejet(Request $request, Affiliation $affiliation): RedirectResponse
     {
         // Validation de la raison
@@ -99,15 +110,15 @@ class AffiliationController extends Controller
             // Génération d'un mot de passe aléatoire
             $generatedPassword = Str::random(10);
 
-
             // Envoi d'un email de félicitations avec le mot de passe
             $entreprise = $affiliation->entreprise;
+            $number_affiliation = $affiliation->numero_affiliation;
 
-            Mail::to($entreprise->email)->send(new ApprouveMailAffiliation($entreprise, $generatedPassword));
+            Mail::to($entreprise->email)->send(new ApprouveMailAffiliation($entreprise, $generatedPassword, $number_affiliation));
 
             // Mise à jour de l'état de l'affiliation
             $affiliation->update(['etat' => 'accepter']);
-            $entreprise->password = $generatedPassword;
+            $entreprise->password = Hash::make($generatedPassword);
             $entreprise->save();
             // Redirection avec un message de succès
             return redirect()->route('admin.affiliations.attente')->with('success', 'Demande approuvée et email envoyé avec le mot de passe.');

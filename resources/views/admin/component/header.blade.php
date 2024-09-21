@@ -36,11 +36,11 @@
             </div>
         </a>
         <div class="flex space-x-5 items-center ">
-            <a href="#" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Les Employeurs</a>
-            <a href="" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Les demande d'affiliation</a>
+            <a href="{{route('admin.affiliations.accepter')}}" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Les Employeurs</a>
+            <a href="{{route('admin.affiliations.attente')}}" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Les demande d'affiliation</a>
             <a href="#" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Les demande d'immatriculation</a>
             <a href="#" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Les Cotisations</a>
         </div>
-        <a href="{{route('admin.logout')}}" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Se deconnecter</a>
+        <a href="{{route('logout')}}" class="text-gray-800 ml-0 hover:text-my-green font-semibold">Se deconnecter</a>
     </nav>
 </header>
