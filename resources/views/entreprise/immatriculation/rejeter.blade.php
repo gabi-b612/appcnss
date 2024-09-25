@@ -39,9 +39,9 @@
                                     <td class="border px-4 py-2">{{ $immatriculation->travailleur->prenom }}</td>
                                     <td class="border px-4 py-2">{{ $immatriculation->travailleur->genre }}</td>
                                 @else
-                                    <td class="border px-4 py-2" colspan="4" class="text-red-500">Aucun travailleur associé</td>
+                                    <td class="border px-4 py-2 text-red-500" colspan="4" >Aucun travailleur associé</td>
                                 @endif
-                                <td class="border px-4 py-2">{{ ucfirst($immatriculation->etat) }}</td>
+                                <td class="border px-4 bg-red-600 rounded py-2">{{ ucfirst($immatriculation->etat) }}</td>
                                 <td class="border px-4 py-2">
                                     <!-- Bouton pour afficher/masquer les détails -->
                                     <button class="bg-my-green text-white px-4 py-2 rounded" onclick="toggleDetails({{ $immatriculation->id }})">

@@ -14,13 +14,18 @@
             </a>
 
             <!-- Bouton vers Toutes les demandes d'affiliations -->
-            <a href="{{route('admin.affiliations.attente')}}" class="bg-my-green text-white text-xl font-bold py-10 px-4 rounded-lg shadow-lg text-center hover:bg-green-600 transition duration-300">
+            <a href="{{route('admin.affiliations.accepter')}}" class="bg-my-green text-white text-xl font-bold py-10 px-4 rounded-lg shadow-lg text-center hover:bg-green-600 transition duration-300">
                 Les demandes d'affiliations
             </a>
 
             <!-- Bouton vers Les cotisations -->
-            <a href="" class="bg-my-green text-white text-xl font-bold py-10 px-4 rounded-lg shadow-lg text-center hover:bg-green-600 transition duration-300">
+            <a href="{{route('admin.affiliations.accepter')}}" class="bg-my-green text-white text-xl font-bold py-10 px-4 rounded-lg shadow-lg text-center hover:bg-green-600 transition duration-300">
                 Les cotisations
+            </a>
+
+            <!-- Bouton vers Les cotisations -->
+            <a href="{{route('admin.affiliations.rejeter')}}" class="bg-my-green text-white text-xl font-bold py-10 px-4 rounded-lg shadow-lg text-center hover:bg-green-600 transition duration-300">
+                Les affiliations rejeter
             </a>
         </div>
     </div>
