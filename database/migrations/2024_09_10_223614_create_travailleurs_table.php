@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('adresse');
             $table->string('telephone');
             $table->string('email')->unique();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->date('date_embauche');
             $table->timestamps();
         });

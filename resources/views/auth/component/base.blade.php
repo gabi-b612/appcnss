@@ -11,9 +11,9 @@
 </head>
 <body>
 <header>
-    @include('entreprise.component.header')
+    @include('component.header')
 </header>
-<div >
+<div>
     @yield('content')
 </div>
 </body>

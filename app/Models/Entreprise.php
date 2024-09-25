@@ -6,11 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Entreprise extends Model
+
+class Entreprise extends Authenticatable
 {
-    use HasFactory, HasApiTokens;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'denomination',

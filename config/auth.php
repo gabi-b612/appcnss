@@ -40,6 +40,20 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'entreprise' => [
+            'driver' => 'session',
+            'provider' => 'entreprises',
+        ],
+
+        'administrateur' => [
+            'driver' => 'session',
+            'provider' => 'administrateurs',
+        ],
+
+        'travailleur' => [
+            'driver' => 'session',
+            'provider' => 'travailleurs',
+        ],
     ],
 
     /*
@@ -60,11 +74,24 @@ return [
     */
 
     'providers' => [
-        'users' => [
+//        'users' => [
+//            'driver' => 'eloquent',
+//            'model' => env('AUTH_MODEL', App\Models\Administrateur::class),
+//        ],
+        'entreprises' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\Administrateur::class),
+            'model' => App\Models\Entreprise::class,
         ],
 
+        'administrateurs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Administrateur::class,
+        ],
+
+//        'travailleurs' => [
+//            'driver' => 'eloquent',
+//            'model' => App\Models\Travailleur::class,
+//        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

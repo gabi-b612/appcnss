@@ -14,14 +14,16 @@ class ApprouveMailAffiliation extends Mailable
     use Queueable, SerializesModels;
     public $password;
     public $entreprise;
+    public $numero_affiliation;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($entreprise, $password)
+    public function __construct($entreprise, $password, $numero_affiliation)
     {
         $this->entreprise = $entreprise;
         $this->password = $password;
+        $this->numero_affiliation = $numero_affiliation;
     }
 
     public function build(): ApprouveMailAffiliation
@@ -31,6 +33,7 @@ class ApprouveMailAffiliation extends Mailable
             ->with([
                 'denomination' => $this->entreprise->denomination,
                 'password' => $this->password,
+                'numero_affiliation' => $this->numero_affiliation,
             ]);
     }
 

@@ -21,4 +21,13 @@ class Immatriculation extends Model
     {
         return $this->belongsTo(Travailleur::class);
     }
+    // Accès à l'entreprise via le travailleur
+    public function entreprise(): BelongsTo
+    {
+        return $this->belongsTo(Entreprise::class); // Remplace Empreinte par le modèle approprié
+    }
+//    public function entreprise()
+//    {
+//        return $this->travailleur->entreprise;
+//    }
 }
