@@ -10,7 +10,7 @@
 
             <!-- Bouton vers Toutes les employeurs -->
             <a href="{{route('entreprise.immatriculation.approuver')}}" class="bg-my-green text-white text-xl font-bold py-10 px-4 rounded-lg shadow-lg text-center hover:bg-green-600 transition duration-300">
-                Mes Travailleurs
+                Mes Travailleurs immatriculés
             </a>
             <!-- Bouton vers Les cotisations -->
             <a href="" class="bg-my-green text-white text-xl font-bold py-10 px-4 rounded-lg shadow-lg text-center hover:bg-green-600 transition duration-300">
@@ -18,15 +18,15 @@
             </a>
             <!-- Bouton vers Toutes les demandes d'immatriculation -->
             <a href="{{ route('immatriculation.create') }}" class="bg-my-green text-white text-xl font-bold py-10 px-4 rounded-lg shadow-lg text-center hover:bg-green-600 transition duration-300">
-                Faire une demandes d'immatriculation
+                Faire une demande d'immatriculation
             </a>
             <!-- Bouton vers Toutes les demandes d'immatriculation -->
             <a href="{{route('entreprise.immatriculation.attente')}}" class="bg-my-green text-white text-xl font-bold py-10 px-4 rounded-lg shadow-lg text-center hover:bg-green-600 transition duration-300">
-                Les demandes d'immatriculation
+                Les demandes d'immatriculation en attente
             </a>
             <!-- Bouton vers Toutes les demandes d'immatriculation -->
             <a href="{{route('entreprise.immatriculation.rejeter')}}" class="bg-my-green text-white text-xl font-bold py-10 px-4 rounded-lg shadow-lg text-center hover:bg-green-600 transition duration-300">
-                Les demandes d'immatriculation rejeter
+                Les demandes d'immatriculation rejetées
             </a>
         </div>
     </div>

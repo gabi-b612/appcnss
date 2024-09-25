@@ -45,16 +45,16 @@
                             </div>
                             <!-- Actions pour accepter ou refuser -->
                             {{--                                route('admin.affiliations.repondre', $affiliation)--}}
-                            <form action="{{route('admin.immatriculations.repondre', $immatriculation, $entreprise)}}" method="POST">
-                                @csrf
-                                <select name="etat" class="border p-2 rounded">
-                                    <option value="approuve">Approuver</option>
-                                    <option value="rejete">Rejeter</option>
-                                </select>
-                                <button type="submit" class="bg-my-green text-white px-4 py-2 rounded">
-                                    Soumettre
-                                </button>
-                            </form>
+{{--                            <form action="{{route('admin.immatriculations.repondre', $immatriculation, $entreprise)}}" method="POST">--}}
+{{--                                @csrf--}}
+{{--                                <select name="etat" class="border p-2 rounded">--}}
+{{--                                    <option value="approuve">Approuver</option>--}}
+{{--                                    <option value="rejete">Rejeter</option>--}}
+{{--                                </select>--}}
+{{--                                <button type="submit" class="bg-my-green text-white px-4 py-2 rounded">--}}
+{{--                                    Soumettre--}}
+{{--                                </button>--}}
+{{--                            </form>--}}
                         </td>
                     </tr>
                     <!-- Détails masqués -->

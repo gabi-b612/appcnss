@@ -10,12 +10,12 @@
 
             <!-- Bouton vers Toutes les employeurs -->
             <a href="{{route('admin.affiliations.accepter')}}" class="bg-my-green text-white text-xl font-bold py-10 px-4 rounded-lg shadow-lg text-center hover:bg-green-600 transition duration-300">
-                Tout les employeurs
+                Tous les employeurs
             </a>
 
             <!-- Bouton vers Toutes les demandes d'affiliations -->
-            <a href="{{route('admin.affiliations.accepter')}}" class="bg-my-green text-white text-xl font-bold py-10 px-4 rounded-lg shadow-lg text-center hover:bg-green-600 transition duration-300">
-                Les demandes d'affiliations
+            <a href="{{route('admin.affiliations.attente')}}" class="bg-my-green text-white text-xl font-bold py-10 px-4 rounded-lg shadow-lg text-center hover:bg-green-600 transition duration-300">
+                Les demandes d'affiliation en attente
             </a>
 
             <!-- Bouton vers Les cotisations -->
@@ -25,7 +25,7 @@
 
             <!-- Bouton vers Les cotisations -->
             <a href="{{route('admin.affiliations.rejeter')}}" class="bg-my-green text-white text-xl font-bold py-10 px-4 rounded-lg shadow-lg text-center hover:bg-green-600 transition duration-300">
-                Les affiliations rejeter
+                Les affiliations rejetées
             </a>
         </div>
     </div>
