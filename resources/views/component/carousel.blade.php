@@ -1,4 +1,4 @@
-<div class="relative w-full h-[500px] overflow-hidden">
+<div class="relative mt-32 w-full h-[500px] overflow-hidden">
     <div id="carousel" class="relative w-full h-full flex transition-transform duration-700 ease-in-out">
         <div class="w-full flex-shrink-0">
             <img src="{{ asset('img/pictures/successful-black-woman-manager-writing-notes.jpg') }}" alt="Travailleur" class="w-full h-full object-cover">

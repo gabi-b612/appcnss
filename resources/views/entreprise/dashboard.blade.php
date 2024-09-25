@@ -1,4 +1,6 @@
 @extends('entreprise.components.base')
+@section('title', 'Accueil-Entreprise')
+
 
 @include('entreprise.components.header')
 

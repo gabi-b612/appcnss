@@ -1,5 +1,7 @@
 
 @extends('entreprise.components.base')
+@section('title', 'Immatriculation-rejeter')
+
 @include('entreprise.components.header')
 
 @section('content')
@@ -29,7 +31,7 @@
                     </thead>
                     <tbody>
                     @foreach($immatriculations as $immatriculation)
-                        @if($immatriculation->etat == 'rejete')
+                        @if($immatriculation->etat == 'rejeter')
                             <tr>
                                 @if($immatriculation->travailleur)
                                     <td class="border px-4 py-2">{{ $immatriculation->travailleur->nom }}</td>

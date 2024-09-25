@@ -1,4 +1,6 @@
 @extends('admin.component.base')
+@section('title', 'Acceuil-admin')
+
 
 @include('admin.component.header')
 

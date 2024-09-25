@@ -1,4 +1,5 @@
 @extends('admin.component.base')
+@section('title', 'Affiliation-approuver')
 @include('admin.component.header')
 
 @section('content')

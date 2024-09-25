@@ -1,5 +1,6 @@
 
 @extends('admin.component.base')
+@section('title', 'Rejeter-affiliation')
 @include('admin.component.header')
 
 @section('content')

@@ -1,5 +1,6 @@
 
 @extends('entreprise.components.base')
+@section('title', 'Immatriculations-en-attentes')
 @include('entreprise.components.header')
 
 

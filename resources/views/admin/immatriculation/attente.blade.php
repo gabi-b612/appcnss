@@ -1,5 +1,6 @@
 
 @extends('admin.component.base')
+@section('title', 'Immatriculations-en-attentes')
 @include('admin.component.header')
 
 @section('content')

@@ -1,4 +1,6 @@
 @extends('entreprise.components.base')
+@section('title', 'Demande immatriculation')
+
 @include('entreprise.components.header')
 
 @section('content')

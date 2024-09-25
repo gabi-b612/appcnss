@@ -1,4 +1,5 @@
 @extends('auth.component.base')
+@section('title', 'Connexion')
 
 @section('content')
     <div class="flex items-center justify-center h-screen">

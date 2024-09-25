@@ -1,5 +1,5 @@
 @extends('entreprise.components.base')
-
+@section('title', 'Immatriculations-approuver')
 @include('entreprise.components.header')
 
 @section('content')

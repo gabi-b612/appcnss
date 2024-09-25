@@ -1,5 +1,6 @@
 
 @extends('admin.component.base')
+@section('title', 'Affiliation-en-attente')
 @include('admin.component.header')
 
 

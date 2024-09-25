@@ -1,5 +1,6 @@
 
 @extends('component.base')
+@section('title', 'Demande-affiliation')
 
 @section('content')
     <div class="container mx-auto mt-40 mb-20 p-6 bg-white shadow-md rounded-lg max-w-xl">
