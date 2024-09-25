@@ -93,10 +93,30 @@ class ImmatriculationController extends Controller
     {
         // Récupérer les immatriculations des travailleurs de cette entreprise
         $immatriculations = Immatriculation::whereHas('travailleur', function($query) use ($entreprise) {
-            $query->where('entreprise_id', $entreprise->id);
+            $query->where('entreprise_id', $entreprise->id)->where('etat', 'en attente');
         })->get();
 
         return view('admin.immatriculation.attente', compact('entreprise', 'immatriculations'));
+    }
+
+    public function showImmatriculationsRejeter(Entreprise $entreprise): View|Factory|Application
+    {
+        // Récupérer les immatriculations des travailleurs de cette entreprise
+        $immatriculations = Immatriculation::whereHas('travailleur', function($query) use ($entreprise) {
+            $query->where('entreprise_id', $entreprise->id)->where('etat', 'rejeter');
+        })->get();
+
+        return view('admin.immatriculation.rejeter', compact('entreprise', 'immatriculations'));
+    }
+
+    public function showImmatriculationsApprouver(Entreprise $entreprise): View|Factory|Application
+    {
+        // Récupérer les immatriculations des travailleurs de cette entreprise
+        $immatriculations = Immatriculation::whereHas('travailleur', function($query) use ($entreprise) {
+            $query->where('entreprise_id', $entreprise->id)->where('etat', 'accepter');
+        })->get();
+
+        return view('admin.immatriculation.accepter', compact('entreprise', 'immatriculations'));
     }
 
     public function confirmerRejet(Request $request, Immatriculation $immatriculation): RedirectResponse

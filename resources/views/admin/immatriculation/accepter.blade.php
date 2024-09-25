@@ -1,50 +1,97 @@
 
-{{--@extends('admin.component.base')--}}
-{{--@include('admin.component.header')--}}
+@extends('admin.component.base')
+@section('title', 'Immatriculations-accepter')
+@include('admin.component.header')
 
+@section('content')
+    <div class="container mt-32 mx-auto px-4 py-8">
+        <h1 class="text-2xl font-bold text-black-blue">Immatriculations en attente pour {{ $entreprise->denomination }}</h1>
+        @if(session('success'))
+            <div class="bg-my-green text-white p-4 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if($immatriculations->isEmpty())
+            <p class="mt-4 text-gray-600">Aucune immatriculation trouvée pour cette entreprise.</p>
+        @else
+            <table class="min-w-full bg-white border-collapse">
+                <thead>
+                <tr class="bg-black-blue text-white">
+                    <th class="py-2 px-4 border-b">Nom</th>
+                    <th class="py-2 px-4 border-b">Postnom</th>
+                    <th class="py-2 px-4 border-b">Prénom</th>
+                    <th class="py-2 px-4 border-b">Genre</th>
+                    <th class="py-2 px-4 border-b">État</th>
+                    <th class="py-2 px-4 border-b">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($immatriculations as $immatriculation)
+                    <tr>
+                        @if($immatriculation->travailleur)
+                            <td class="border px-4 py-2">{{ $immatriculation->travailleur->nom }}</td>
+                            <td class="border px-4 py-2">{{ $immatriculation->travailleur->postnom }}</td>
+                            <td class="border px-4 py-2">{{ $immatriculation->travailleur->prenom }}</td>
+                            <td class="border px-4 py-2">{{ $immatriculation->travailleur->genre }}</td>
+                        @else
+                            <td class="border px-4 py-2 text-red-500" colspan="4">Aucun travailleur associé</td>
+                        @endif
+                        <td class="border px-4 py-2">{{ ucfirst($immatriculation->etat) }}</td>
+                        <td class="border flex gap-10 px-4 py-2">
+                            <div>
+                                <button class="bg-my-green text-white px-4 py-2 rounded" onclick="toggleDetails({{ $immatriculation->id }})">
+                                    Voir détails
+                                </button>
+                            </div>
+                            <!-- Actions pour accepter ou refuser -->
+                            {{--                                route('admin.affiliations.repondre', $affiliation)--}}
+                            <form action="{{route('admin.immatriculations.repondre', $immatriculation, $entreprise)}}" method="POST">
+                                @csrf
+                                <select name="etat" class="border p-2 rounded">
+                                    <option value="approuve">Approuver</option>
+                                    <option value="rejete">Rejeter</option>
+                                </select>
+                                <button type="submit" class="bg-my-green text-white px-4 py-2 rounded">
+                                    Soumettre
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <!-- Détails masqués -->
+                    <tr id="details-{{ $immatriculation->id }}" class="hidden">
+                        <td colspan="6" class="border px-4 py-2 bg-gray-100">
+                            <div class="p-4">
+                                <h3 class="text-lg font-semibold">Détails du travailleur :</h3>
+                                @if($immatriculation->travailleur)
+                                    <p><strong>Nom :</strong> {{ $immatriculation->travailleur->nom }}</p>
+                                    <p><strong>Postnom :</strong> {{ $immatriculation->travailleur->postnom }}</p>
+                                    <p><strong>Prénom :</strong> {{ $immatriculation->travailleur->prenom }}</p>
+                                    <p><strong>Genre :</strong> {{ $immatriculation->travailleur->genre }}</p>
+                                    <p><strong>Date de naissance :</strong> {{ $immatriculation->travailleur->date_naissance }}</p>
+                                    <p><strong>Adresse :</strong> {{ $immatriculation->travailleur->adresse }}</p>
+                                    <p><strong>Téléphone :</strong> {{ $immatriculation->travailleur->telephone }}</p>
+                                    <p><strong>Email :</strong> {{ $immatriculation->travailleur->email }}</p>
+                                @else
+                                    <p class="text-red-500">Aucun travailleur associé.</p>
+                                @endif
 
-{{--@section('content')--}}
-{{--    <div class="container mt-40  mx-auto my-10">--}}
-{{--        <h1 class="text-2xl font-bold mb-5">Immatriculation</h1>--}}
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        @endif
+    </div>
 
-{{--        @if(session('success'))--}}
-{{--            <div class="bg-green-500 text-white p-4 rounded mb-4">--}}
-{{--                {{ session('success') }}--}}
-{{--            </div>--}}
-{{--        @endif--}}
-
-{{--        <table class="min-w-full bg-white">--}}
-{{--            <thead>--}}
-{{--            <tr>--}}
-{{--                <th class="py-2 px-4 border-b">Dénomination</th>--}}
-{{--                <th class="py-2 px-4 border-b">Adresse</th>--}}
-{{--                <th class="py-2 px-4 border-b">Téléphone</th>--}}
-{{--                <th class="py-2 px-4 border-b">Email</th>--}}
-{{--                <th class="py-2 px-4 border-b">Documents</th>--}}
-{{--                <th class="py-2 px-4 border-b">État</th>--}}
-{{--            </tr>--}}
-{{--            </thead>--}}
-{{--            <tbody>--}}
-{{--            @foreach($affiliations as $affiliation)--}}
-{{--                <tr>--}}
-{{--                    <td class="py-2 px-4 border-b">{{ $affiliation->entreprise->denomination }}</td>--}}
-{{--                    <td class="py-2 px-4 border-b">{{ $affiliation->entreprise->adresse }}</td>--}}
-{{--                    <td class="py-2 px-4 border-b">{{ $affiliation->entreprise->telephone }}</td>--}}
-{{--                    <td class="py-2 px-4 border-b">{{ $affiliation->entreprise->email }}</td>--}}
-{{--                    <td class="py-2 px-4 border-b">--}}
-{{--                        <!-- Lien pour visualiser le document RCCM -->--}}
-{{--                        <a href="{{ asset('storage/' . $affiliation->document_rccm) }}" target="_blank" class="text-blue-600 hover:underline">RCCM</a><br>--}}
-
-{{--                        <!-- Lien pour visualiser le document juridique -->--}}
-{{--                        <a href="{{ asset('storage/' . $affiliation->document_juridique) }}" target="_blank" class="text-blue-600 hover:underline">Document juridique</a><br>--}}
-
-{{--                        <!-- Lien pour visualiser le document ID national -->--}}
-{{--                        <a href="{{ asset('storage/' . $affiliation->document_id_national) }}" target="_blank" class="text-blue-600 hover:underline">ID National</a>--}}
-{{--                    </td>--}}
-{{--                    <td class="py-2 px-4 border-b">{{ ucfirst($affiliation->etat) }}</td>--}}
-{{--                </tr>--}}
-{{--            @endforeach--}}
-{{--            </tbody>--}}
-{{--        </table>--}}
-{{--    </div>--}}
-{{--@endsection--}}
+    <script>
+        function toggleDetails(id) {
+            var detailsRow = document.getElementById('details-' + id);
+            if (detailsRow.classList.contains('hidden')) {
+                detailsRow.classList.remove('hidden');
+            } else {
+                detailsRow.classList.add('hidden');
+            }
+        }
+    </script>
+@endsection

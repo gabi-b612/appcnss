@@ -33,13 +33,15 @@ Route::middleware(['auth:administrateur'])->group(function () {
     Route::get('/administrateur/affiliations/rejeter', [AffiliationController::class, 'affiliationsEnRejeter'])->name('admin.affiliations.rejeter');
     Route::get('/administrateur/affiliations/approuver', [AffiliationController::class, 'affiliationsEnApprouver'])->name('admin.affiliations.accepter');
 
-    Route::get('/administrateur/immatriculation/attente', [ImmatriculationController::class, 'immatriculationsEnAttente'])->name('admin.immatriculations.attente');
+//    Route::get('/administrateur/immatriculation/attente', [ImmatriculationController::class, 'immatriculationsEnAttente'])->name('admin.immatriculations.attente');
     Route::post('/administrateur/immatriculation/{immatriculation}/repondre', [ImmatriculationController::class, 'repondre'])->name('admin.immatriculations.repondre');
     Route::post('/administrateur/immatriculation/{immatriculation}/rejet', [ImmatriculationController::class, 'confirmerRejet'])->name('admin.immatriculations.rejet');
 //    Route::get('/administrateur/immatriculation/rejeter', [ImmatriculationController::class, 'immatriculationsEnRejeter'])->name('admin.immatriculations.rejeter');
 //    Route::get('/administrateur/immatriculation/approuver', [ImmatriculationController::class, 'immatriculationsEnApprouver'])->name('admin.immatriculations.accepter');
 
     Route::get('/administrateur/immatriculations/{entreprise}', [ImmatriculationController::class, 'showImmatriculations'])->name('admin.immatriculations');
+    Route::get('/administrateur/immatriculations/{entreprise}/approuver', [ImmatriculationController::class, 'showImmatriculationsApprouver'])->name('admin.immatriculations.approuver');
+    Route::get('/administrateur/immatriculations/{entreprise}/rejeter', [ImmatriculationController::class, 'showImmatriculationsRejeter'])->name('admin.immatriculations.rejeter');
 
 });
 

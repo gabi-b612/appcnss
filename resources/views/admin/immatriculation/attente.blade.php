@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="container mt-32 mx-auto px-4 py-8">
-        <h1 class="text-2xl font-bold text-black-blue">Immatriculations pour {{ $entreprise->denomination }}</h1>
+        <h1 class="text-2xl font-bold text-black-blue">Immatriculations approuver pour {{ $entreprise->denomination }}</h1>
         @if(session('success'))
             <div class="bg-my-green text-white p-4 rounded mb-4">
                 {{ session('success') }}
@@ -36,25 +36,14 @@
                         @else
                             <td class="border px-4 py-2 text-red-500" colspan="4">Aucun travailleur associé</td>
                         @endif
-                        <td class="border px-4 py-2">{{ ucfirst($immatriculation->etat) }}</td>
+                        <td class="border px-4 bg-my-green rounded py-2">{{ ucfirst($immatriculation->etat) }}</td>
                         <td class="border flex gap-10 px-4 py-2">
                             <div>
                                 <button class="bg-my-green text-white px-4 py-2 rounded" onclick="toggleDetails({{ $immatriculation->id }})">
                                     Voir détails
                                 </button>
                             </div>
-                            <!-- Actions pour accepter ou refuser -->
-                            {{--                                route('admin.affiliations.repondre', $affiliation)--}}
-                            <form action="{{route('admin.immatriculations.repondre', $immatriculation, $entreprise)}}" method="POST">
-                                @csrf
-                                <select name="etat" class="border p-2 rounded">
-                                    <option value="approuve">Approuver</option>
-                                    <option value="rejete">Rejeter</option>
-                                </select>
-                                <button type="submit" class="bg-my-green text-white px-4 py-2 rounded">
-                                    Soumettre
-                                </button>
-                            </form>
+
                         </td>
                     </tr>
                     <!-- Détails masqués -->
@@ -95,39 +84,3 @@
         }
     </script>
 @endsection
-{{--@section('content')--}}
-{{--    <div class="container mt-32 mx-auto px-4 py-8">--}}
-{{--        <h1 class="text-2xl font-bold text-black-blue">Immatriculations pour {{ $entreprise->denomination }}</h1>--}}
-
-{{--        @if($immatriculations->isEmpty())--}}
-{{--            <p class="mt-4 text-gray-600">Aucune immatriculation trouvée pour cette entreprise.</p>--}}
-{{--        @else--}}
-{{--            <table class="min-w-full bg-white border-collapse">--}}
-{{--                <thead>--}}
-{{--                <tr class="bg-black-blue text-white">--}}
-{{--                    <th class="py-2 px-4 border-b">Nom</th>--}}
-{{--                    <th class="py-2 px-4 border-b">Postnom</th>--}}
-{{--                    <th class="py-2 px-4 border-b">Prénom</th>--}}
-{{--                    <th class="py-2 px-4 border-b">Genre</th>--}}
-{{--                    <th class="py-2 px-4 border-b">État</th>--}}
-{{--                </tr>--}}
-{{--                </thead>--}}
-{{--                <tbody>--}}
-{{--                @foreach($immatriculations as $immatriculation)--}}
-{{--                    <tr>--}}
-{{--                        @if($immatriculation->travailleur)--}}
-{{--                            <td class="border px-4 py-2">{{ $immatriculation->travailleur->nom }}</td>--}}
-{{--                            <td class="border px-4 py-2">{{ $immatriculation->travailleur->postnom }}</td>--}}
-{{--                            <td class="border px-4 py-2">{{ $immatriculation->travailleur->prenom }}</td>--}}
-{{--                            <td class="border px-4 py-2">{{ $immatriculation->travailleur->genre }}</td>--}}
-{{--                        @else--}}
-{{--                            <td class="border px-4 py-2 text-red-500" colspan="4">Aucun travailleur associé</td>--}}
-{{--                        @endif--}}
-{{--                        <td class="border px-4 py-2">{{ ucfirst($immatriculation->etat) }}</td>--}}
-{{--                    </tr>--}}
-{{--                @endforeach--}}
-{{--                </tbody>--}}
-{{--            </table>--}}
-{{--        @endif--}}
-{{--    </div>--}}
-{{--@endsection--}}

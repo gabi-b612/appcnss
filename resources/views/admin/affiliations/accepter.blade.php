@@ -24,7 +24,7 @@
                         <th class="py-2 px-4 border-b">Téléphone</th>
                         <th class="py-2 px-4 border-b">Email</th>
                         <th class="py-2 px-4 border-b">Documents</th>
-                        <th class="py-2 px-4 border-b">Actions</th>
+                        <th class="py-2 px-4 border-b">Immatriculations</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -45,9 +45,17 @@
                                 <a href="{{ asset('storage/' . $affiliation->document_id_national) }}" target="_blank" class="text-blue-600 hover:underline">ID National</a>
                             </td>
                             <td class="border px-4 py-2">
-                                <a href="{{ route('admin.immatriculations', $affiliation->entreprise->id) }}" class="bg-my-green text-white px-4 py-2 rounded">
-                                    Voir les immatriculations
-                                </a>
+                                <div class="flex gap-10">
+                                    <a href="{{ route('admin.immatriculations', $affiliation->entreprise->id) }}" class="bg-my-green text-white px-4 py-2 rounded">
+                                        attentes
+                                    </a>
+                                    <a href="{{ route('admin.immatriculations.approuver', $affiliation->entreprise->id) }}" class="bg-my-green text-white px-4 py-2 rounded">
+                                        approuver
+                                    </a>
+                                    <a href="{{ route('admin.immatriculations.rejeter', $affiliation->entreprise->id) }}" class="bg-my-green text-white px-4 py-2 rounded">
+                                        rejeter
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
