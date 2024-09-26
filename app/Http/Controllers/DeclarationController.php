@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\DeclarationApprouveeMail;
 use App\Mail\DeclarationRejeterMail;
+use App\Models\Cotisation;
 use App\Models\Declaration;
 use App\Models\Entreprise;
 use App\Models\Travailleur;
@@ -13,6 +14,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -87,14 +89,15 @@ class DeclarationController extends Controller
     }
     public function uploadExcel(Request $request): RedirectResponse
     {
+
         $request->validate([
             'file' => 'required|mimes:xlsx',
         ]);
 
-        // Stocker le fichier uploadé
-        $path = $request->file('file')->store('declarations', 'public');
+        $file = $request->file('file');
+        $filename = 'declaration_' . time() . '.' . $file->getClientOriginalExtension();
 
-        // Créer une nouvelle déclaration
+        $path = $file->storeAs('declarations', $filename, 'public');
         Declaration::create([
             'entreprise_id' => Entreprise::find(auth()->id())->id,
             'file_path' => $path,
@@ -153,7 +156,7 @@ class DeclarationController extends Controller
         // Télécharger le fichier
         return response()->download($filePath);
     }
-    public function repondre(Declaration $declaration): RedirectResponse
+    public function repondres(Declaration $declaration): RedirectResponse
     {
 
         // Envoyer un e-mail à l'entreprise
@@ -163,6 +166,42 @@ class DeclarationController extends Controller
 
         return redirect()->back()->with('success', 'Déclaration approuvée et email envoyé.');
     }
+    public function repondre(Declaration $declaration): RedirectResponse
+    {
+        // Envoyer un e-mail à l'entreprise pour informer de l'approbation
+        Mail::to($declaration->entreprise->email)->send(new DeclarationApprouveeMail($declaration));
+
+        // Mettre à jour le statut de la déclaration
+        $declaration->status = 'approuve';
+        $declaration->save();
+
+        // Lire le fichier Excel renvoyé par l'entreprise
+        $filePath = storage_path('app/public/' . $declaration->file_path);
+        $spreadsheet = IOFactory::load($filePath);
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Boucler sur les lignes pour créer des cotisations
+        $highestRow = $sheet->getHighestRow(); // Obtenir le dernier numéro de ligne
+
+        for ($row = 2; $row <= $highestRow; $row++) {
+            // Obtenir les valeurs des colonnes nécessaires
+            $travailleurId = $sheet->getCell('A' . $row)->getValue();
+            $montantBrut = $sheet->getCell('H' . $row)->getValue(); // Montant brut imposable
+            $montantCotise = $sheet->getCell('I' . $row)->getCalculatedValue(); // Montant cotisé (formule calculée)
+
+            // Créer une nouvelle cotisation pour le travailleur
+            Cotisation::create([
+                'travailleur_id' => $travailleurId,
+                'declaration_id' => $declaration->id, // Lier à la déclaration en cours
+                'montant_brut' => $montantBrut,
+                'montant_cotiser' => $montantCotise,
+                'periode' => date('Y-m') // Utiliser le mois actuel comme période de cotisation
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Déclaration approuvée, cotisations créées et email envoyé.');
+    }
+
     public function confirmerRejet(Declaration $declaration): RedirectResponse
     {
 
