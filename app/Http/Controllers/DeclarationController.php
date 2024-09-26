@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\DeclarationApprouveeMail;
+use App\Mail\DeclarationRejeterMail;
 use App\Models\Declaration;
 use App\Models\Entreprise;
 use App\Models\Travailleur;
@@ -10,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -150,6 +153,26 @@ class DeclarationController extends Controller
         // Télécharger le fichier
         return response()->download($filePath);
     }
+    public function repondre(Declaration $declaration): RedirectResponse
+    {
 
+        // Envoyer un e-mail à l'entreprise
+        Mail::to($declaration->entreprise->email)->send(new DeclarationApprouveeMail($declaration));
+        $declaration->status = 'approuve';
+        $declaration->save();
 
+        return redirect()->back()->with('success', 'Déclaration approuvée et email envoyé.');
+    }
+    public function confirmerRejet(Declaration $declaration): RedirectResponse
+    {
+
+        // Envoyer un e-mail à l'entreprise
+        Mail::to($declaration->entreprise->email)->send(new DeclarationRejeterMail($declaration));
+
+        // Logique pour rejeter la déclaration
+        $declaration->status = 'rejete';
+        $declaration->save();
+
+        return redirect()->back()->with('success', 'Déclaration rejetée et email envoyé.');
+    }
 }

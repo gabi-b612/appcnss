@@ -72,8 +72,8 @@
                             </td>
                             <td class="border px-4 py-2">
                                 <div class="flex gap-4">
-                                    <a href="" class="bg-my-green text-white px-4 py-2 rounded">Approuver</a>
-                                    <a href="" class="bg-red-500 text-white px-4 py-2 rounded">Rejeter</a>
+                                    <a href="{{route('admin.declaration.repondre', $declaration->id)}}" class="bg-my-green text-white px-4 py-2 rounded">Approuver</a>
+                                    <a href="{{route('admin.declaration.rejet', $declaration->id)}}" class="bg-red-500 text-white px-4 py-2 rounded">Rejeter</a>
                                 </div>
                             </td>
                         </tr>

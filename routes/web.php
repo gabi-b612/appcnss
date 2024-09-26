@@ -51,6 +51,8 @@ Route::middleware(['auth:administrateur'])->group(function () {
     Route::get('/declaration/{id}/download', [DeclarationController::class, 'download'])->name('declaration.download');
 
 
+    Route::get('/administrateur/declaration/{declaration}/repondre', [DeclarationController::class, 'repondre'])->name('admin.declaration.repondre');
+    Route::get('/administrateur/declaration/{declaration}/rejet', [DeclarationController::class, 'confirmerRejet'])->name('admin.declaration.rejet');
 
 });
 
