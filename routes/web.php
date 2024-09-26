@@ -58,4 +58,6 @@ Route::middleware(['auth:entreprise'])->group(function () {
 
     // Declarer cotisation
     Route::get('/declaration/generate', [DeclarationController::class, 'generateExcel'])->name('declaration.declarer');
+    Route::get('/declaration/upload', [DeclarationController::class, 'enoyerFichierExcel'])->name('declaration.envoyer');
+    Route::post('/declaration/upload', [DeclarationController::class, 'uploadExcel'])->name('declaration.upload');
 });

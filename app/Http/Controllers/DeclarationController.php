@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Declaration;
 use App\Models\Entreprise;
 use App\Models\Travailleur;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -63,6 +66,7 @@ class DeclarationController extends Controller
             $sheet->setCellValue('C' . $row, $travailleur->nom);
             $sheet->setCellValue('D' . $row, $travailleur->postnom);
             $sheet->setCellValue('E' . $row, $travailleur->prenom);
+            $sheet->setCellValue('G' . $row, date('Y-m'));
             $row++;
         }
 
@@ -93,7 +97,7 @@ class DeclarationController extends Controller
 
         // Créer une nouvelle déclaration
         Declaration::create([
-            'entreprise_id' => Entreprise::find(auth()->id()),
+            'entreprise_id' => Entreprise::find(auth()->id())->id,
             'file_path' => $path,
             'status' => 'en attente',
         ]);
@@ -101,4 +105,8 @@ class DeclarationController extends Controller
         return back()->with('success', 'Fichier uploadé avec succès. En attente de validation.');
     }
 
+    public function enoyerFichierExcel(): View|Factory|Application
+    {
+        return view('entreprise.declaration.envoyer');
+    }
 }
