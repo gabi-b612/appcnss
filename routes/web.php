@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AffiliationController;
+use App\Http\Controllers\DeclarationController;
 use App\Http\Controllers\EntrepriseController;
 use App\Http\Controllers\ImmatriculationController;
 use Illuminate\Support\Facades\Route;
@@ -54,4 +55,7 @@ Route::middleware(['auth:entreprise'])->group(function () {
     Route::get('/entreprise/immatriculation/attente', [EntrepriseController::class, 'immatriculationEnAttente'])->name('entreprise.immatriculation.attente');
     Route::get('/entreprise/immatriculation/rejeter', [EntrepriseController::class, 'immatriculationEnRejeter'])->name('entreprise.immatriculation.rejeter');
     Route::get('/entreprise/immatriculation/approuver', [EntrepriseController::class, 'immatriculationEnApprouver'])->name('entreprise.immatriculation.approuver');
+
+    // Declarer cotisation
+    Route::get('/declaration/generate', [DeclarationController::class, 'generateExcel'])->name('declaration.declarer');
 });

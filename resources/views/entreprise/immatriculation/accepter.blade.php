@@ -30,7 +30,7 @@
                     </thead>
                     <tbody>
                     @foreach($immatriculations as $immatriculation)
-                        @if($immatriculation->etat == 'approuve')
+                        @if($immatriculation->etat == 'accepter')
                             <tr>
                                 <td class="border px-4 py-2">{{ $immatriculation->numero_immatriculation }}</td>
                                 @if($immatriculation->travailleur)

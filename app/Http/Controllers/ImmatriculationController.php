@@ -169,6 +169,9 @@ class ImmatriculationController extends Controller
             $immatriculation->update([
                 'numero_immatriculation' => $numero_matricule
             ]);
+            $immatriculation->update([
+                'etat' => 'accepter'
+            ]);
             return redirect()->route('admin.immatriculations', $travailleur->entreprise->id)->with('success', 'Demande approuvée et email envoyé avec le mot de passe.');
         }
         if ($etat == 'rejete') {
