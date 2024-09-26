@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="container mt-32 mx-auto px-4 py-8">
-        <h1 class="text-2xl font-bold text-black-blue">Immatriculations en attente pour {{ $entreprise->denomination }}</h1>
+        <h1 class="text-2xl font-bold text-black-blue">Immatriculations pour {{ $entreprise->denomination }}</h1>
         @if(session('success'))
             <div class="bg-my-green text-white p-4 rounded mb-4">
                 {{ session('success') }}
@@ -43,18 +43,6 @@
                                     Voir détails
                                 </button>
                             </div>
-                            <!-- Actions pour accepter ou refuser -->
-                            {{--                                route('admin.affiliations.repondre', $affiliation)--}}
-{{--                            <form action="{{route('admin.immatriculations.repondre', $immatriculation, $entreprise)}}" method="POST">--}}
-{{--                                @csrf--}}
-{{--                                <select name="etat" class="border p-2 rounded">--}}
-{{--                                    <option value="approuve">Approuver</option>--}}
-{{--                                    <option value="rejete">Rejeter</option>--}}
-{{--                                </select>--}}
-{{--                                <button type="submit" class="bg-my-green text-white px-4 py-2 rounded">--}}
-{{--                                    Soumettre--}}
-{{--                                </button>--}}
-{{--                            </form>--}}
                         </td>
                     </tr>
                     <!-- Détails masqués -->
