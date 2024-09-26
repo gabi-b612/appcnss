@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AffiliationController;
+use App\Http\Controllers\CotisationController;
 use App\Http\Controllers\DeclarationController;
 use App\Http\Controllers\EntrepriseController;
 use App\Http\Controllers\ImmatriculationController;
@@ -70,4 +71,9 @@ Route::middleware(['auth:entreprise'])->group(function () {
     Route::get('/declaration/generate', [DeclarationController::class, 'generateExcel'])->name('declaration.declarer');
     Route::get('/declaration/upload', [DeclarationController::class, 'envoyerFichierExcel'])->name('declaration.envoyer');
     Route::post('/declaration/upload', [DeclarationController::class, 'uploadExcel'])->name('declaration.upload');
+});
+
+
+Route::middleware(['auth:travailleur'])->group(function () {
+    Route::get('/mes-cotisations', [CotisationController::class, 'index'])->name('cotisations.index');
 });

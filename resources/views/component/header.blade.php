@@ -33,27 +33,11 @@
             <img src="{{asset('img/logo-CNSS.png')}}" alt="Logo CNSS" class="h-10 ">
         </div>
         <div class="flex space-x-5 items-center ">
-            <a href="{{route('index')}}" class="text-green-400 font-semibold text-lg gap-2">Accueil</a>
+            <a href="{{route('index')}}" class="text-gray-800 font-semibold text-lg gap-2">Accueil</a>
             <div class="relative group">
-                <a href="#" class="text-gray-800 hover:text-green-600 font-semibold">Employeur</a>
-                <ul class="absolute hidden group-hover:block bg-white shadow-md mt-2 rounded">
-                    <li>
-                        <a href="{{route('affiliation.create')}}" class="block px-4 py-2 text-gray-800 hover:text-my-green">Demande d'affiliation</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-4 py-2 text-gray-800 hover:text-my-green">Demande d'immatriculation</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-4 py-2 text-gray-800 hover:text-my-green">Declarer le versement</a>
-                    </li>
-                </ul>
+                <a href="{{route('affiliation.create')}}" class="text-gray-800 hover:text-my-green font-semibold">Demande d'affiliation</a>
             </div>
-            <div class="relative group">
-                <a href="#" class="text-gray-800 hover:text-my-green font-semibold">Travailleur</a>
-                <div class="absolute hidden group-hover:block bg-white shadow-md mt-2 rounded">
-                    <a href="#" class="block px-4 py-2 text-gray-800 hover:text-my-green">Mon compte</a>
-                </div>
-            </div>
+
             <a href="{{route('login')}}" class="text-gray-800 hover:text-my-green font-semibold">Se connecter</a>
         </div>
     </nav>

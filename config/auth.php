@@ -88,14 +88,14 @@ return [
             'model' => App\Models\Administrateur::class,
         ],
 
-//        'travailleurs' => [
-//            'driver' => 'eloquent',
-//            'model' => App\Models\Travailleur::class,
-//        ],
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'travailleurs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Travailleur::class,
+        ],
+//         'users' => [
+//             'driver' => 'database',
+//             'table' => 'users',
+//         ],
     ],
 
     /*
