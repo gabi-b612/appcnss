@@ -44,6 +44,14 @@ Route::middleware(['auth:administrateur'])->group(function () {
     Route::get('/administrateur/immatriculations/{entreprise}/approuver', [ImmatriculationController::class, 'showImmatriculationsApprouver'])->name('admin.immatriculations.approuver');
     Route::get('/administrateur/immatriculations/{entreprise}/rejeter', [ImmatriculationController::class, 'showImmatriculationsRejeter'])->name('admin.immatriculations.rejeter');
 
+    // declaration cotisation
+    Route::get('/admin/declaration/attente/{entreprise}', [DeclarationController::class, 'declarationEnAttente'])->name('admin.declaration.attente');
+    Route::get('/admin/declaration/approuver/{entreprise}', [DeclarationController::class, 'declarationEnApprouver'])->name('admin.declaration.approuver');
+    Route::get('/admin/declaration/rejeter/{entreprise}', [DeclarationController::class, 'declarationEnRejeter'])->name('admin.declaration.rejeter');
+    Route::get('/declaration/{id}/download', [DeclarationController::class, 'download'])->name('declaration.download');
+
+
+
 });
 
 // Route pour les entreprise
@@ -58,6 +66,6 @@ Route::middleware(['auth:entreprise'])->group(function () {
 
     // Declarer cotisation
     Route::get('/declaration/generate', [DeclarationController::class, 'generateExcel'])->name('declaration.declarer');
-    Route::get('/declaration/upload', [DeclarationController::class, 'enoyerFichierExcel'])->name('declaration.envoyer');
+    Route::get('/declaration/upload', [DeclarationController::class, 'envoyerFichierExcel'])->name('declaration.envoyer');
     Route::post('/declaration/upload', [DeclarationController::class, 'uploadExcel'])->name('declaration.upload');
 });

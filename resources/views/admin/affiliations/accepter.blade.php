@@ -23,8 +23,8 @@
                         <th class="py-2 px-4 border-b">Adresse</th>
                         <th class="py-2 px-4 border-b">Téléphone</th>
                         <th class="py-2 px-4 border-b">Email</th>
-                        <th class="py-2 px-4 border-b">Documents</th>
                         <th class="py-2 px-4 border-b">Immatriculations</th>
+                        <th class="py-2 px-4 border-b">Cotisations</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -34,16 +34,7 @@
                             <td class="border px-4 py-2">{{ $affiliation->entreprise->adresse }}</td>
                             <td class="border px-4 py-2">{{ $affiliation->entreprise->telephone }}</td>
                             <td class="border px-4 py-2">{{ $affiliation->entreprise->email }}</td>
-                            <td class="py-2 px-4 border-b">
-                                <!-- Lien pour visualiser le document RCCM -->
-                                <a href="{{ asset('storage/' . $affiliation->document_rccm) }}" target="_blank" class="text-blue-600 hover:underline">RCCM</a><br>
 
-                                <!-- Lien pour visualiser le document juridique -->
-                                <a href="{{ asset('storage/' . $affiliation->document_juridique) }}" target="_blank" class="text-blue-600 hover:underline">Document juridique</a><br>
-
-                                <!-- Lien pour visualiser le document ID national -->
-                                <a href="{{ asset('storage/' . $affiliation->document_id_national) }}" target="_blank" class="text-blue-600 hover:underline">ID National</a>
-                            </td>
                             <td class="border px-4 py-2">
                                 <div class="flex gap-10">
                                     <a href="{{ route('admin.immatriculations', $affiliation->entreprise->id) }}" class="bg-my-green text-white px-4 py-2 rounded">
@@ -53,6 +44,19 @@
                                         approuver
                                     </a>
                                     <a href="{{ route('admin.immatriculations.rejeter', $affiliation->entreprise->id) }}" class="bg-my-green text-white px-4 py-2 rounded">
+                                        rejeter
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="border px-4 py-2">
+                                <div class="flex gap-10">
+                                    <a href="{{ route('admin.declaration.attente', $affiliation->entreprise->id) }}" class="bg-my-green text-white px-4 py-2 rounded">
+                                        attentes
+                                    </a>
+                                    <a href="{{ route('admin.declaration.approuver', $affiliation->entreprise->id) }}" class="bg-my-green text-white px-4 py-2 rounded">
+                                        approuver
+                                    </a>
+                                    <a href="{{ route('admin.declaration.rejeter', $affiliation->entreprise->id) }}" class="bg-my-green text-white px-4 py-2 rounded">
                                         rejeter
                                     </a>
                                 </div>

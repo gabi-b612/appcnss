@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class DeclarationController extends Controller
 {
-    // Générer et télécharger le fichier Excel avec les travailleurs
     public function generateExcel(): BinaryFileResponse
     {
         $entreprise = Entreprise::find(auth()->id());
@@ -83,9 +82,6 @@ class DeclarationController extends Controller
 
         return response()->download($filePath)->deleteFileAfterSend(true);
     }
-
-
-    // Upload du fichier Excel complété par l'entreprise
     public function uploadExcel(Request $request): RedirectResponse
     {
         $request->validate([
@@ -104,9 +100,56 @@ class DeclarationController extends Controller
 
         return back()->with('success', 'Fichier uploadé avec succès. En attente de validation.');
     }
-
-    public function enoyerFichierExcel(): View|Factory|Application
+    public function envoyerFichierExcel(): View|Factory|Application
     {
         return view('entreprise.declaration.envoyer');
     }
+    public function declarationEnAttente(Entreprise $entreprise): View|Factory|Application
+    {
+        // Récupérer toutes les déclarations de l'entreprise qui sont en attente
+        $declarations = Declaration::where('entreprise_id', $entreprise->id)
+            ->where('status', 'en attente') // Filtrer par état "en attente"
+            ->get();
+
+        // Retourner la vue avec les déclarations en attente
+        return view('admin.declaration.attente', compact('declarations', 'entreprise'));
+    }
+    public function declarationEnApprouver(Entreprise $entreprise): View|Factory|Application
+    {
+        // Récupérer toutes les déclarations approuvées de l'entreprise
+        $declarations = Declaration::where('entreprise_id', $entreprise->id)
+            ->where('status', 'approuve') // Filtrer par état "approuvé"
+            ->get();
+
+        // Retourner la vue avec les déclarations approuvées
+        return view('admin.declaration.approuver', compact('declarations', 'entreprise'));
+    }
+    public function declarationEnRejeter(Entreprise $entreprise): View|Factory|Application
+    {
+        // Récupérer toutes les déclarations rejetées de l'entreprise
+        $declarations = Declaration::where('entreprise_id', $entreprise->id)
+            ->where('status', 'rejete') // Filtrer par état "rejeté"
+            ->get();
+
+        // Retourner la vue avec les déclarations rejetées
+        return view('admin.declaration.rejeter', compact('declarations', 'entreprise'));
+    }
+    public function download($id): BinaryFileResponse|RedirectResponse
+    {
+        // Trouver la déclaration par son ID
+        $declaration = Declaration::findOrFail($id);
+
+        // Construire le chemin complet du fichier
+        $filePath = storage_path('app/public/' . $declaration->file_path);
+
+        // Vérifier si le fichier existe
+        if (!file_exists($filePath)) {
+            return redirect()->back()->with('error', 'Le fichier n\'existe pas.');
+        }
+
+        // Télécharger le fichier
+        return response()->download($filePath);
+    }
+
+
 }
