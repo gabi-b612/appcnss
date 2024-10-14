@@ -6,7 +6,11 @@
 @section('content')
     <div class="container mt-40 mx-auto my-10">
         <h1 class="text-2xl font-bold mb-5">Raison du rejet pour {{ $affiliation->entreprise->denomination }}</h1>
-
+        @if(session('success'))
+            <div class="bg-my-green text-white p-4 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
         <form action="{{ route('admin.affiliations.rejet', $affiliation) }}" method="POST">
             @csrf
             <div class="mb-4">

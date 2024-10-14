@@ -43,7 +43,7 @@ class DeclarationController extends Controller
             'Postnom',
             'Prenom',
             'Commune',
-            'Periode Cotisee ',
+            'Periode Cotisee (annee-mois)',
             'Montant Brut Imposable',
             'Montant Cotise'
         ];
@@ -70,7 +70,6 @@ class DeclarationController extends Controller
             $sheet->setCellValue('C' . $row, $travailleur->nom);
             $sheet->setCellValue('D' . $row, $travailleur->postnom);
             $sheet->setCellValue('E' . $row, $travailleur->prenom);
-            $sheet->setCellValue('G' . $row, date('Y-m'));
             $row++;
         }
 
@@ -95,7 +94,7 @@ class DeclarationController extends Controller
         ]);
 
         $file = $request->file('file');
-        $filename = 'declaration_' . time() . '.' . $file->getClientOriginalExtension();
+        $filename = 'declaration_' . date('m-Y') . '.' . $file->getClientOriginalExtension();
 
         $path = $file->storeAs('declarations', $filename, 'public');
         Declaration::create([
@@ -168,9 +167,6 @@ class DeclarationController extends Controller
     }
     public function repondre(Declaration $declaration): RedirectResponse
     {
-        // Envoyer un e-mail à l'entreprise pour informer de l'approbation
-        Mail::to($declaration->entreprise->email)->send(new DeclarationApprouveeMail($declaration));
-
         // Mettre à jour le statut de la déclaration
         $declaration->status = 'approuve';
         $declaration->save();
@@ -188,15 +184,17 @@ class DeclarationController extends Controller
             $travailleurId = $sheet->getCell('A' . $row)->getValue();
             $montantBrut = $sheet->getCell('H' . $row)->getValue(); // Montant brut imposable
             $montantCotise = $sheet->getCell('I' . $row)->getCalculatedValue(); // Montant cotisé (formule calculée)
-
+            $periodeCotise = $sheet->getCell('G' . $row)->getValue();
             // Créer une nouvelle cotisation pour le travailleur
             Cotisation::create([
                 'travailleur_id' => $travailleurId,
                 'declaration_id' => $declaration->id, // Lier à la déclaration en cours
                 'montant_brut' => $montantBrut,
                 'montant_cotiser' => $montantCotise,
-                'periode' => date('Y-m') // Utiliser le mois actuel comme période de cotisation
+                'periode' => $periodeCotise
             ]);
+            // Envoyer un e-mail à l'entreprise pour informer de l'approbation
+            Mail::to($declaration->entreprise->email)->send(new DeclarationApprouveeMail($declaration));
         }
 
         return redirect()->back()->with('success', 'Déclaration approuvée, cotisations créées et email envoyé.');

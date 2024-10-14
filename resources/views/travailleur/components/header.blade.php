@@ -39,7 +39,7 @@
     <nav class="p-4 flex justify-between items-center gap-10">
         <a href="">
             <div class=" space-x-4 ">
-                <p class="text-gray-800 ml-0 hover:text-my-green font-extrabold size-3">{{Auth::user()->prenom}} </p>
+                <p class="text-gray-800 ml-0 hover:text-my-green font-extrabold ">{{Auth::user()->nom . ' ' . Auth::user()->prenom}} </p>
             </div>
         </a>
         <div class="flex space-x-5 items-center ">

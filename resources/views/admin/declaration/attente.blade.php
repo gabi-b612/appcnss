@@ -48,7 +48,11 @@
 @section('content')
     <div class="container mt-32 mx-auto px-4 py-8">
         <h1 class="text-2xl font-bold text-black-blue">Déclarations en Attente pour {{ $entreprise->denomination }}</h1>
-
+        @if(session('success'))
+            <div class="bg-my-green text-white p-4 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
         @if($declarations->isEmpty())
             <p class="mt-4 text-gray-600">Aucune déclaration en attente trouvée.</p>
         @else

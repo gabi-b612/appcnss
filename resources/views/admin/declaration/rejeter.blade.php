@@ -42,7 +42,11 @@
 @section('content')
     <div class="container mt-32 mx-auto px-4 py-8">
         <h1 class="text-2xl font-bold text-black-blue">Déclarations Rejetées pour {{ $entreprise->denomination }}</h1>
-
+        @if(session('success'))
+            <div class="bg-my-green text-white p-4 rounded mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
         @if($declarations->isEmpty())
             <p class="mt-4 text-gray-600">Aucune déclaration rejetée trouvée.</p>
         @else
@@ -57,7 +61,7 @@
                     <tbody>
                     @foreach($declarations as $declaration)
                         <tr>
-                            <td class="border px-4 py-2">{{ $declaration->file_name }}</td>
+                            <td class="border px-4 py-2">{{ $declaration->file_path }}</td>
                             <td class="border px-4 py-2">
                                 <a href="{{ route('declaration.download', $declaration->id) }}" class="bg-my-green text-white px-4 py-2 rounded">
                                     Télécharger

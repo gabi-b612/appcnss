@@ -30,9 +30,8 @@ class AffiliationController extends Controller
             'telephone' => 'required|string|max:15|unique:entreprises,telephone',
             'email' => 'required|email|unique:entreprises,email',
             'forme_juridique' => 'required|string',
-            'document_rccm' => 'required|mimes:pdf|max:2048',
-            'document_juridique' => 'required|mimes:pdf|max:2048',
-            'document_id_national' => 'required|mimes:pdf|max:2048',
+            'documents' => 'required|array|min:3|max:3', // Validation pour s'assurer qu'il y a exactement trois fichiers
+            'documents.*' => 'mimes:pdf|max:2048',
         ]);
 
         $entreprise = Entreprise::create([
@@ -43,28 +42,75 @@ class AffiliationController extends Controller
             'forme_juridique' => $validated['forme_juridique'],
         ]);
 
-        if ($request->hasFile('document_rccm')) {
-            $documentPathRccm = $request->file('document_rccm')->store('rccm_documents', 'public');
-        }
-        if ($request->hasFile('document_juridique')) {
-            $documentPathJuridique = $request->file('document_juridique')->store('rccm_juridiques', 'public');
-        }
-        if ($request->hasFile('document_id_national')) {
-            $documentPathID = $request->file('document_id_national')->store('rccm_id_nationals', 'public');
+        // Traiter les documents
+        $documentKeys = ['document_rccm', 'document_juridique', 'document_id_national'];
+        $documentPaths = [];
+        foreach ($request->file('documents') as $index => $file) {
+            $directory = match($documentKeys[$index]) {
+                'document_rccm' => 'rccm_documents',
+                'document_juridique' => 'rccm_juridiques',
+                'document_id_national' => 'rccm_id_nationals',
+                default => 'other_documents'
+            };
+            $documentPaths[$documentKeys[$index]] = $file->store($directory, 'public');
         }
 
         Affiliation::create([
             'entreprise_id' => $entreprise->id,
             'numero_affiliation' => '010' . rand(100000000, 999999999),
-            'document_rccm' => $documentPathRccm,
-            'document_juridique' => $documentPathJuridique,
-            'document_id_national' => $documentPathID,
+            'document_rccm' => $documentPaths['document_rccm'],
+            'document_juridique' => $documentPaths['document_juridique'],
+            'document_id_national' => $documentPaths['document_id_national'],
             'abreviation' => strtoupper(substr($validated['denomination'], 0, 3)),
             'etat' => 'en attente',
         ]);
 
         return redirect()->route('affiliation.create')->with('success', 'Demande d\'affiliation soumise avec succès.');
     }
+
+//    public function store(Request $request): RedirectResponse
+//    {
+//        $validated = $request->validate([
+//            'denomination' => 'required|string|max:255|unique:entreprises,denomination',
+//            'adresse' => 'required|string|max:255',
+//            'telephone' => 'required|string|max:15|unique:entreprises,telephone',
+//            'email' => 'required|email|unique:entreprises,email',
+//            'forme_juridique' => 'required|string',
+//            'document_rccm' => 'required|mimes:pdf|max:2048',
+//            'document_juridique' => 'required|mimes:pdf|max:2048',
+//            'document_id_national' => 'required|mimes:pdf|max:2048',
+//        ]);
+//
+//        $entreprise = Entreprise::create([
+//            'denomination' => strtoupper($validated['denomination']),
+//            'adresse' => $validated['adresse'],
+//            'telephone' => $validated['telephone'],
+//            'email' => $validated['email'],
+//            'forme_juridique' => $validated['forme_juridique'],
+//        ]);
+//
+//        if ($request->hasFile('document_rccm')) {
+//            $documentPathRccm = $request->file('document_rccm')->store('rccm_documents', 'public');
+//        }
+//        if ($request->hasFile('document_juridique')) {
+//            $documentPathJuridique = $request->file('document_juridique')->store('rccm_juridiques', 'public');
+//        }
+//        if ($request->hasFile('document_id_national')) {
+//            $documentPathID = $request->file('document_id_national')->store('rccm_id_nationals', 'public');
+//        }
+//
+//        Affiliation::create([
+//            'entreprise_id' => $entreprise->id,
+//            'numero_affiliation' => '010' . rand(100000000, 999999999),
+//            'document_rccm' => $documentPathRccm,
+//            'document_juridique' => $documentPathJuridique,
+//            'document_id_national' => $documentPathID,
+//            'abreviation' => strtoupper(substr($validated['denomination'], 0, 3)),
+//            'etat' => 'en attente',
+//        ]);
+//
+//        return redirect()->route('affiliation.create')->with('success', 'Demande d\'affiliation soumise avec succès.');
+//    }
 
     public function affiliationsEnAttente(): View|Factory|Application
     {
